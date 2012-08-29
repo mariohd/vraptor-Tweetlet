@@ -21,7 +21,7 @@ public class TweetsDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			Query query = session.createQuery("from Tweet");
+			Query query = session.createQuery("from Tweet order by dataEnvio desc");
 			List<Tweet> tweets = query.list();
 			for (Tweet t : tweets){
 				t.setUsuarioDono(usuarioDao.getUsuario(t.getUsuarioDono().getId()));
@@ -52,7 +52,20 @@ public class TweetsDao {
 		}
 	}
 
-	public void retweetar(Tweet tweet, Usuario usuario) {
+	public void retweetar(String mensagem, int usuarioId, int donoId) {
+		Tweet rt = new Tweet();
+		rt.setUsuarioDono(usuarioDao.getUsuario(usuarioId));
+		Usuario dono = usuarioDao.getUsuario(donoId);
+		rt.setCorpoMensagem("RT @"+dono.getLogin()+"/ " + mensagem);
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.save(rt);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
 	}
 
 	public void excluir(Tweet tweet) {

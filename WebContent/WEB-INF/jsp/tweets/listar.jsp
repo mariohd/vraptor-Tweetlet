@@ -15,18 +15,21 @@
 	<ul>
 		<c:forEach items="${tweetList}" var="tweet">
 			<li>${tweet.id} - ${tweet.corpoMensagem} -
-				${tweet.usuarioDono.login } - <fmt:formatDate pattern="dd/MM/yyyy HH:mm"
-					value="${tweet.dataEnvio }" />
+				${tweet.usuarioDono.login } - <fmt:formatDate
+					pattern="dd/MM/yyyy HH:mm" value="${tweet.dataEnvio }" />
 			</li>
+			<ul>
+				<li>
+					<form action=retweet method="post">
+						<input type="hidden" value="${tweet.corpoMensagem }" name=mensagem id=mensagem>
+						<input type="hidden" value=${usuario.id } name=usuarioId id=usuarioId>
+						<input type="hidden" value=${tweet.usuarioDono.id } name=donoId id=donoId>
+						<button type="submit">Retweet</button>
+					</form>
+				</li>
+			</ul>
 		</c:forEach>
 	</ul>
-	
-	<form action="<c:url value='/tweets'/>" method="post">
-		<input type="hidden" value="${usuario.id }" id=tweet.usuarioDono.id	
-			name=tweet.usuarioDono.id>
-		<textarea cols="60" rows="4" name=tweet.corpoMensagem
-			id=tweet.corpoMensagem></textarea>
-		<button type="submit">Submeter</button>
-	</form>
+	<c:import url="formNovoTweetlet.jsp"></c:import>
 </body>
 </html>
