@@ -10,7 +10,7 @@ public class Tweet {
 	private String corpoMensagem;
 	private Usuario usuarioDono;
 	private Date dataEnvio;
-	
+	private Integer respondeuTweet;
 	
 	public int getId() {
 		return id;
@@ -35,6 +35,12 @@ public class Tweet {
 	}
 	public void setDataEnvio(Date dataEnvio) {
 		this.dataEnvio = dataEnvio;
+	}
+	public Integer getRespondeuTweet() {
+		return respondeuTweet;
+	}
+	public void setRespondeuTweet(Integer respondeuTweet) {
+		this.respondeuTweet = respondeuTweet;
 	}
 	
 }

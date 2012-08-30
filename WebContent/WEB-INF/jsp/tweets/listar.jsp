@@ -17,14 +17,26 @@
 			<li>${tweet.id} - ${tweet.corpoMensagem} -
 				${tweet.usuarioDono.login } - <fmt:formatDate
 					pattern="dd/MM/yyyy HH:mm" value="${tweet.dataEnvio }" />
+				<c:if test="${tweet.respondeuTweet != null }">
+					<label>Em resposta do tweet id ${tweet.respondeuTweet }</label>
+				</c:if>
 			</li>
 			<ul>
 				<li>
 					<form action=retweet method="post">
-						<input type="hidden" value="${tweet.corpoMensagem }" name=mensagem id=mensagem>
-						<input type="hidden" value=${usuario.id } name=usuarioId id=usuarioId>
-						<input type="hidden" value=${tweet.usuarioDono.id } name=donoId id=donoId>
+						<input type="hidden" value="${tweet.corpoMensagem }" name=mensagem
+							id=mensagem> <input type="hidden" value=${usuario.id }
+							name=usuarioId id=usuarioId> <input type="hidden"
+							value=${tweet.usuarioDono.id } name=donoId id=donoId>
 						<button type="submit">Retweet</button>
+					</form>
+				</li>
+				<li>
+					<form action=responder method="post">
+						<input type="hidden" value=${usuario.id } name=usuarioId id=usuarioId> 
+						<input type="hidden" value=${tweet.id } name=tweetId id=tweetId>
+						<textarea rows="4" cols="20" name=resposta id=resposta></textarea>
+						<button type="submit">Responder</button>
 					</form>
 				</li>
 			</ul>

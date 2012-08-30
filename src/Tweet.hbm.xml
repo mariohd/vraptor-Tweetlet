@@ -19,5 +19,8 @@
 		<property name="dataEnvio" type="java.util.Date">
 			<column name="dataEnvio"></column>
 		</property>
+		<property name="respondeuTweet">
+			<column name="respondeuTweet"></column>
+		</property>
 	</class>
 </hibernate-mapping>

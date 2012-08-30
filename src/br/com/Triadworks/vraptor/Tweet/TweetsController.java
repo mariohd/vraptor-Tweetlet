@@ -2,7 +2,6 @@ package br.com.Triadworks.vraptor.Tweet;
 
 import java.util.List;
 
-import br.com.Triadworks.vraptor.Usuario.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -43,6 +42,11 @@ public class TweetsController {
 	@Path ("/retweet")
 	public void retweetar(String mensagem, int usuarioId, int donoId){
 		dao.retweetar(mensagem, usuarioId, donoId);
+		result.redirectTo(TweetsController.class).listar();
+	}
+	@Path ("/responder")
+	public void responder(int usuarioId, int tweetId, String resposta){
+		dao.responder(resposta, tweetId, usuarioId);
 		result.redirectTo(TweetsController.class).listar();
 	}
 

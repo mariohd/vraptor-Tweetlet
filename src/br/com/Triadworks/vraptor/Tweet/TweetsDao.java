@@ -22,6 +22,7 @@ public class TweetsDao {
 		try {
 			trns = session.beginTransaction();
 			Query query = session.createQuery("from Tweet order by dataEnvio desc");
+			@SuppressWarnings("unchecked")
 			List<Tweet> tweets = query.list();
 			for (Tweet t : tweets){
 				t.setUsuarioDono(usuarioDao.getUsuario(t.getUsuarioDono().getId()));
@@ -68,7 +69,20 @@ public class TweetsDao {
 		}
 	}
 
-	public void excluir(Tweet tweet) {
+	public void responder(String resposta, int idRespondido, int usuario) {
+		Tweet resp = new Tweet();
+		resp.setCorpoMensagem(resposta);
+		resp.setUsuarioDono(usuarioDao.getUsuario(usuario));
+		resp.setRespondeuTweet(idRespondido);
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.save(resp);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
 	}
 
 }
