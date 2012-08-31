@@ -12,17 +12,29 @@
 	rel="stylesheet" type="text/css" />
 <script src=http://twitter.github.com/bootstrap/assets/js/bootstrap.js></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	  var par = $('*#responderTweet');
-	  $(par).hide();
-	  
-	  $('#fadein').click(function(e) {
-	      $(par).slideToggle('slow');
-	      e.preventDefault();
-	  });
+	$(document).ready(function() {
+		var par = $('*#responderTweet');
+		$(par).hide();
+
+		$('*#fadein').click(function(e) {	
+			$(par).slideToggle('slow');
+			atributo = this.attr("id");
+			alert(atributo);
+			e.preventDefault();
+		});
+	});
+	
+	$(document).ready(function() {
+		var par = $('*#corpoIdRespondido');
+		$(par).hide();
+
+		$('*#respostaDeA').click(function(e) {
+			$(par).slideToggle('slow');
+			e.preventDefault();
+		});
 	});
 </script>
-<title>Insert title here</title>
+<title>Tweetlet with Vraptor</title>
 </head>
 <body>
 	<c:import url="cabecalho.jsp"></c:import>
@@ -34,7 +46,7 @@ $(document).ready(function() {
 				<div class="well sidebar-nav"
 					style="border-radius: 15px; position: fixed">
 					<ul class="nav nav-list">
-						<li class="nav-header"><p>Novo tweetlet</p></li>
+						<li class="nav-header"><p>Tweetlet with Vraptor</p></li>
 						<li class="active" style="border-radius: 15px"><c:import
 								url="formNovoTweetlet.jsp"></c:import></li>
 					</ul>
@@ -46,25 +58,29 @@ $(document).ready(function() {
 						<ul class="nav nav-list">
 							<li>${tweet.id} - ${tweet.corpoMensagem} -
 								${tweet.usuarioDono.login } - <fmt:formatDate
-									pattern="dd/MM/yyyy HH:mm" value="${tweet.dataEnvio }" /> <c:if
-									test="${tweet.respondeuTweet != null }">
-									<label>Em resposta do tweet id ${tweet.respondeuTweet }</label>
-								</c:if>
+									pattern="dd/MM/yyyy HH:mm" value="${tweet.dataEnvio }" /> 
+									<c:if test="${tweet.respondeuTweet != null }">
+										<label id=respostaDeA>Respondeu...</label>
+										<div id=corpoIdRespondido>
+											${tweet.respondeuTweet }
+										</div>
+									</c:if>
 							</li>
-							<li>
+							<li style="float: left">	
 								<form action=retweet method="post">
 									<input type="hidden" value="${tweet.corpoMensagem }"
 										name=mensagem id=mensagem> <input type="hidden"
 										value=${usuario.id } name=usuarioId id=usuarioId> <input
 										type="hidden" value=${tweet.usuarioDono.id } name=donoId
 										id=donoId>
-									<button type="submit">Retweet</button>
+									<button type="submit"><i class="icon-share"></i></button>
 								</form>
 							</li>
 							<li>
-								<button id=fadein>Responder</button>
+								<button id=fadein name="${tweet.id }"><i class="icon-edit"></i></button>
 							</li>
-							<li id=responderTweet>
+							<li>
+							<div id=responderTweet>
 								<form action=responder method="post">
 									<input type="hidden" value=${usuario.id } name=usuarioId
 										id=usuarioId> <input type="hidden" value=${tweet.id }
@@ -72,6 +88,7 @@ $(document).ready(function() {
 									<textarea rows="4" cols="20" name=resposta id=resposta></textarea>
 									<button type="submit">Enviar</button>
 								</form>
+							</div>
 							</li>
 						</ul>
 					</div>
