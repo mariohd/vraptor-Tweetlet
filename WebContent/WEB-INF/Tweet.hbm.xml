@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="br.com.Triadworks.model.Tweet" table="Tweet">
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<property name="corpoMensagem">
+			<column name="corpoMensagem" />
+		</property>
+		<component name="usuarioDono" class="br.com.Triadworks.model.Usuario">
+			<property name="id">
+				<column name="usuario_id" />
+			</property>
+		</component>
+		<property name="dataEnvio" type="java.util.Date">
+			<column name="dataEnvio"></column>
+		</property>
+		<property name="respondeuTweet">
+			<column name="respondeuTweet"></column>
+		</property>
+	</class>
+</hibernate-mapping>
