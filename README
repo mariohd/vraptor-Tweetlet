@@ -1,6 +1,6 @@
 Java project to study VRaptor. 
 
-This project try to do something like tweeter do, but using Caelum's VRaptor 3. 
+This project try to do something like Twitter do, but using Caelum's VRaptor 3. 
 
 Another version of this project is in https://github.com/mariohd/Tweetlet, but using servlets instead of VRaptor.
 
